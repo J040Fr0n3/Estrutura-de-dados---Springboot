@@ -1,0 +1,337 @@
+/* ==========================================================================
+   CSS MODO DARK - INTERFAZ CONFORTÁVEL & MODERNA (ESTRUTURA DE DADOS)
+   ========================================================================== */
+
+/* 1. Variáveis de Cores e Configurações Globais */
+:root {
+    /* Paleta Principal (Azul Escuro Suave) */
+    --bg-base: #121824;          /* Fundo da página */
+    --bg-surface: #1e293b;       /* Fundo dos cards/paineis */
+    --bg-surface-hover: #263449; 
+    --bg-input: #0f172a;         /* Fundo dos inputs e caixas internas */
+    
+    /* Textos (Alto contraste sem agredir a vista) */
+    --text-primary: #f1f5f9;     /* Branco suavizado */
+    --text-secondary: #94a3b8;   /* Cinza médio para textos auxiliares */
+    --text-muted: #64748b;       /* Cinza escuro para placeholders */
+
+    /* Cores de Destaque */
+    --primary: #6366f1;          /* Indigo vibrante suave */
+    --primary-hover: #4f46e5;    
+    --primary-glow: rgba(99, 102, 241, 0.25);
+    
+    --accent-node: #38bdf8;      /* Ciano para destacar os valores dos Nodes */
+
+    /* Ações Específicas / Status */
+    --danger: #ef4444;           /* Vermelho suave para remoção */
+    --danger-hover: #dc2626;
+    --danger-glow: rgba(239, 68, 68, 0.2);
+    
+    /* Bordas e Sombras */
+    --border-color: #334155;
+    --border-focus: #818cf8;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    
+    /* Transição Suave */
+    --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 2. Reset Básico & Estilos de Tela */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* 3. Container Principal */
+.container {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* 4. Cabeçalho */
+h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-align: center;
+    background: linear-gradient(135deg, #a5b4fc 0%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
+    margin-bottom: 2px;
+}
+
+h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+    color: var(--accent-node);
+    margin-bottom: 12px;
+}
+
+.conceito {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    background: var(--bg-surface);
+    padding: 16px 20px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.conceito strong {
+    color: var(--accent-node);
+}
+
+/* 5. Painel de Informações / Status */
+.info {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 18px 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--shadow-card);
+}
+
+.info div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.1rem;
+}
+
+.info strong {
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+
+.info span {
+    background-color: var(--primary);
+    color: #ffffff;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    box-shadow: 0 0 10px var(--primary-glow);
+}
+
+/* 6. Estilo dos Cards */
+.card, .explicacao {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+    transition: var(--transition);
+}
+
+.card:hover, .explicacao:hover {
+    border-color: #475569;
+}
+
+.card h3, .explicacao h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+/* 7. Formulários e Inputs */
+form {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+input[type="number"],
+input[type="text"] {
+    flex: 1;
+    min-width: 180px;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    outline: none;
+    transition: var(--transition);
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+input::placeholder {
+    color: var(--text-muted);
+}
+
+/* 8. Botões */
+button {
+    background-color: var(--primary);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 0 15px var(--primary-glow);
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button:disabled {
+    background-color: var(--border-color);
+    color: var(--text-muted);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Botão de Remover (Ação Destrutiva) */
+.btn-remover {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    width: 100%;
+}
+
+.btn-remover:hover:not(:disabled) {
+    background-color: var(--danger);
+    color: #ffffff;
+    box-shadow: 0 0 15px var(--danger-glow);
+}
+
+/* 9. Visualização dos Nós (Estrutura da Lista) */
+.lista {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px;
+    background-color: var(--bg-input);
+    border-radius: var(--radius-md);
+    border: 1px dashed var(--border-color);
+    min-height: 80px;
+}
+
+.node {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.node-conteudo {
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+    border: 2px solid var(--accent-node);
+    border-radius: var(--radius-sm);
+    padding: 10px 18px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.node-conteudo strong {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.seta {
+    color: var(--text-secondary);
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.null {
+    color: #f43f5e;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+    font-size: 0.95rem;
+    background: rgba(244, 63, 94, 0.1);
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(244, 63, 94, 0.2);
+}
+
+.vazia {
+    color: var(--text-muted);
+    font-style: italic;
+    width: 100%;
+    text-align: center;
+}
+
+/* 10. Resultado de Busca */
+.resultado {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background-color: var(--bg-input);
+    border-radius: var(--radius-sm);
+    border-left: 4px solid var(--primary);
+    font-size: 0.95rem;
+}
+
+.resultado strong {
+    color: var(--accent-node);
+}
+
+/* 11. Seção de Explicação */
+.explicacao p {
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+.explicacao p:last-child {
+    margin-bottom: 0;
+}
+
+.explicacao strong {
+    color: var(--text-primary);
+}
+
+/* Adaptabilidade para Dispositivos Móveis */
+@media (max-width: 480px) {
+    form {
+        flex-direction: column;
+    }
+    
+    input[type="number"],
+    button {
+        width: 100%;
+    }
+}

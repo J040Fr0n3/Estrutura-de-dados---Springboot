@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Encadeada</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Estrutura de Dados</h1>
+        <h2>Lista Encadeada</h2>
+        <p class="conceito">
+            Uma lista encadeada é formada por
+            <strong>nós</strong> ligados entre si.
+        </p>
+
+        <!-- ==================== -->
+        <!-- INFORMAÇÕES -->
+        <!-- ==================== -->
+
+        <div class="info">
+            <div>
+                <strong>Tamanho</strong>
+                <span th:text="${tamanho}">
+                    0
+                </span>
+            </div>
+        </div>
+
+        <!-- ==================== -->
+        <!-- INSERIR NO INÍCIO -->
+        <!-- ==================== -->
+
+        <div class="card">
+            <h3>Inserir no início</h3>
+            <form method="post" action="/lista/inicio">
+                <input type="number" name="valor" placeholder="Digite um valor" required>
+                <button type="submit">
+                    Inserir
+                </button>
+            </form>
+        </div>
+
+        <!-- ==================== -->
+        <!-- INSERIR NO FINAL -->
+        <!-- ==================== -->
+
+        <div class="card">
+            <h3>Inserir no final</h3>
+            <form method="post" action="/lista/fim">
+                <input type="number" name="valor" placeholder="Digite um valor" required>
+                <button type="submit">
+                    Inserir
+                </button>
+            </form>
+        </div>
+
+        <!-- ==================== -->
+        <!-- REPRESENTAÇÃO -->
+        <!-- ==================== -->
+
+        <div class="card">
+            <h3>Estrutura da Lista</h3>
+            <div class="lista">
+                <div th:each="elemento, iteracao: ${elementos}" class="node">
+                    <div class="node-conteudo">
+                        <strong th:text="${elemento}">
+                            10
+                        </strong>
+                    </div>
+                    <div th:if="${!iteracao.last}" class="seta">
+                        →
+                    </div>
+                    <div th:if="${iteracao.last}" class="null">
+                        → null
+                    </div>
+                </div>
+
+                <div th:if="${#lists.isEmpty(elementos)}" class="vazia">
+                    Lista vazia
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== -->
+        <!-- REMOVER -->
+        <!-- ==================== -->
+
+        <div class="card">
+            <h3>Remover primeiro elemento</h3>
+            <form method="post" action="/lista/remover">
+                <button type="submit" class="btn-remover" th:disabled="${#lists.isEmpty(elementos)}">
+                    Remover início
+                </button>
+            </form>
+        </div>
+
+        <!-- ==================== -->
+        <!-- BUSCAR -->
+        <!-- ==================== -->
+
+        <div class="card">
+            <h3>Buscar elemento</h3>
+            <form method="post" action="/lista/buscar">
+                <input type="number" name="valor" placeholder="Digite um valor" required>
+                <button type="submit">
+                    Buscar
+                </button>
+            </form>
+
+            <div th:if="${busca != null}" class="resultado">
+                <span th:if="${encontrado}">
+                    Valor
+                    <strong th:text="${busca}">
+                        10
+                    </strong>
+                    encontrado!
+                </span>
+                <span th:unless="${encontrado}">
+                    Valor
+                    <strong th:text="${busca}">
+                        10
+                    </strong>
+                    não encontrado.
+                </span>
+            </div>
+        </div>
+
+        <!-- ==================== -->
+        <!-- EXPLICAÇÃO -->
+        <!-- ==================== -->
+
+        <div class="explicacao">
+            <h3>Como funciona?</h3>
+            <p>
+                Cada elemento da lista é armazenado
+                dentro de um <strong>Node</strong>.
+            </p>
+            <p>
+                Cada Node possui uma referência
+                para o próximo Node.
+            </p>
+            <p>
+                O último Node aponta para
+                <strong>null</strong>.
+            </p>
+            <p>
+                Exemplo:
+                <strong>
+                    10 → 20 → 30 → null
+                </strong>
+            </p>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

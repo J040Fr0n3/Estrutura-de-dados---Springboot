@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Laboratório de Ordenação</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+
+<body>
+<div class="container">
+
+    <h1>Laboratório de Algoritmos de Ordenação</h1>
+
+    <p>
+        Compare a complexidade, a quantidade de operações
+        e o tempo de execução dos algoritmos.
+    </p>
+
+    <div class="painel">
+        <h2>Configuração do teste</h2>
+
+        <form method="post" action="/ordenacao">
+            <label for="tamanho">Quantidade de elementos:</label>
+
+            <input
+                    type="number"
+                    id="tamanho"
+                    name="tamanho"
+                    min="1"
+                    max="1000000"
+                    value="1000"
+                    th:value="${tamanho != null ? tamanho : 1000000}"
+                    required>
+
+            <button type="submit">Executar comparação</button>
+        </form>
+
+        <p class="erro" th:if="${erro}" th:text="${erro}"></p>
+
+        <p>
+            Os cinco algoritmos recebem cópias do mesmo vetor aleatório.
+        </p>
+    </div>
+
+    <div class="painel" th:if="${resultados != null}">
+        <h2>Resultados da execução</h2>
+
+        <p>
+            Tamanho do vetor:
+            <strong th:text="${tamanho}"></strong> elementos.
+        </p>
+
+        <div class="tabela">
+            <table>
+                <thead>
+                <tr>
+                    <th>Algoritmo</th>
+                    <th>Melhor caso</th>
+                    <th>Caso médio</th>
+                    <th>Pior caso</th>
+                    <th>Comparações</th>
+                    <th>Escritas</th>
+                    <th>Trocas</th>
+                    <th>Total de operações</th>
+                    <th>Tempo (ms)</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="r : ${resultados}">
+                    <td th:text="${r.nome}"></td>
+                    <td th:text="${r.melhorCaso}"></td>
+                    <td th:text="${r.casoMedio}"></td>
+                    <td th:text="${r.piorCaso}"></td>
+
+                    <td th:text="${#numbers.formatInteger(r.comparacoes, 1, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatInteger(r.escritas, 1, 'POINT')}"></td>
+                    <td th:text="${#numbers.formatInteger(r.trocas, 1, 'POINT')}"></td>
+                    <td class="destaque"
+                        th:text="${#numbers.formatInteger(r.totalOperacoes, 1, 'POINT')}"></td>
+
+                    <td th:text="${#numbers.formatDecimal(r.tempoMs, 1, 4)}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="painel" th:if="${resultados != null}">
+        <h2>Vetor após a ordenação</h2>
+
+        <div th:each="r : ${resultados}">
+            <p><strong th:text="${r.nome}"></strong></p>
+            <p class="vetor" th:text="${r.vetorOrdenado}"></p>
+        </div>
+    </div>
+
+    <div class="painel explicacao">
+        <h2>Como interpretar os resultados?</h2>
+
+        <p>
+            <strong>Complexidade:</strong>
+            descreve como o trabalho cresce com o tamanho da entrada.
+            Não representa diretamente o tempo em milissegundos.
+        </p>
+
+        <p>
+            <strong>Comparações:</strong>
+            quantas vezes o algoritmo comparou dois elementos.
+        </p>
+
+        <p>
+            <strong>Escritas:</strong>
+            quantas atribuições foram feitas a posições de vetores,
+            incluindo o vetor auxiliar do Merge Sort.
+        </p>
+
+        <p>
+            <strong>Trocas:</strong>
+            quantos intercâmbios efetivos entre posições foram realizados.
+        </p>
+
+        <p>
+            <strong>Total de operações:</strong>
+            soma das comparações com as escritas. É uma métrica
+            didática definida para esta aplicação, não uma contagem
+            universal de todas as instruções do processador.
+        </p>
+
+        <p>
+            <strong>Tempo:</strong>
+            duração medida com <code>System.nanoTime()</code>,
+            convertida para milissegundos. Resultados muito curtos
+            podem variar entre execuções.
+        </p>
+    </div>
+
+</div>
+</body>
+</html>
